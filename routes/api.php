@@ -31,6 +31,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/checkAuth', [AuthController::class, 'checkAuth'])->middleware('jwt.auth');
 
 Route::post('/apply', [ScholarshipApplicationsController::class, 'create']);
+Route::post('/submit', [ScholarshipApplicationsController::class, 'submit']);
 
 Route::post('/upload', [ScholarshipApplicationsController::class, 'upload']);
 

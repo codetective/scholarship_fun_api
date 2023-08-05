@@ -39,6 +39,35 @@ class ScholarshipApplicationsController extends Controller
 
         return response()->json($app, 201);
     }
+    public function submit(StoreScholarshipApplicationsRequest $request)
+    {
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = '';
+        $length = 4;
+
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, strlen($characters) - 1)];
+        }
+
+        $randomNumber = mt_rand(100000, 999999);
+
+        $applicationCode = 'AKEF' . $randomString . $randomNumber;
+
+        $app = ScholarshipApplication::create([
+            'name' => $request->firstname . ' ' . $request->lastname,
+            'email' => $request->email,
+            'gender' => $request->gender,
+            'lga' => $request->lga,
+            'dob' => $request->dob,
+            'disability' => $request->form_of_disability,
+            'programme_of_study' => $request->programme_of_study,
+            'course_of_study' => $request->course_of_study,
+            'application_code' => $applicationCode,
+        ]);
+        Documents::create(['scholarship_application_id' => $app->id]);
+
+        return response()->json($app, 201);
+    }
 
     public function upload(Request $request)
     {

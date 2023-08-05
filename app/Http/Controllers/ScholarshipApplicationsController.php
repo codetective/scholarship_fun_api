@@ -78,6 +78,7 @@ class ScholarshipApplicationsController extends Controller
         ]);
 
         $file = $request->file('file');
+
         $filePath = $file->store('images', 'public'); // Make sure to store the image in the public disk
         $image = new Images([
             'scholarship_application_id' => $request->input('scholarship_application_id'),
